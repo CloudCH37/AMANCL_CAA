@@ -13,7 +13,7 @@ high1 = length(b1);       % high : End data(row)
 
 % data variable
 t1=b1(low1:high1,3);
-press_P1_S=b1(low1:high1,5);
+press_P1_S=b1(low1:high1,2);
 pressfluc_P1_S = press_P1_S-mean(press_P1_S);
 
 fs=100000;
@@ -44,7 +44,7 @@ high2 = length(b2);       % high : End data(row)
 
 % data variable
 t2=b2(low2:high2,3);
-press_P2_S=b2(low2:high2,5);
+press_P2_S=b2(low2:high2,2);
 pressfluc_P2_S = press_P2_S-mean(press_P2_S);
 
 fs2=100000;
@@ -74,7 +74,7 @@ high3 = length(b3);       % high : End data(row)
 
 % data variable
 t3=b3(low3:high3,3);
-press_P3_S=b3(low3:high3,5);
+press_P3_S=b3(low3:high3,2);
 pressfluc_P3_S = press_P3_S-mean(press_P3_S);
 
 fs3=100000;
@@ -104,7 +104,7 @@ high4 = length(b4);       % high : End data(row)
 
 % data variable
 t4=b4(low4:high4,3);
-press_P4_S=b4(low4:high4,5);
+press_P4_S=b4(low4:high4,2);
 pressfluc_P4_S = press_P4_S-mean(press_P4_S);
 
 fs4=100000;
@@ -134,7 +134,7 @@ high5 = length(b5);       % high : End data(row)
 
 % data variable
 t5=b5(low5:high5,3);
-press_P5_S=b5(low5:high5,5);
+press_P5_S=b5(low5:high5,2);
 pressfluc_P5_S = press_P5_S-mean(press_P5_S);
 
 fs5=100000;
@@ -161,12 +161,27 @@ PSD_P5=SPL_P5-10*log10(df5);
 
 % Detect Data plot(time steps,kPa)
 b7=readmatrix("Wall_Pressure_fine_Grid.txt");
-low = 4+4996;                % low : Start data(row)
+low = 4+4998;                % low : Start data(row)
 high7 = length(b7);       % high : End data(row)
 
 % data variable
 t7=b7(low:high7,2);
-press_P7_S=b7(low:high7,5);
+press_P7_S=b7(low:high7,3);
+%data augmentation
+t7_aug=t7+t7(length(t7));
+press_P7_S_aug=flip(press_P7_S);
+
+t7=cat(1,t7,t7_aug);
+press_P7_S=cat(1,press_P7_S,press_P7_S_aug);
+
+%data augmentation
+t7_aug=t7+t7(length(t7));
+press_P7_S_aug=flip(press_P7_S);
+
+t7=cat(1,t7,t7_aug);
+press_P7_S=cat(1,press_P7_S,press_P7_S_aug);
+
+
 pressfluc_P7_S = press_P7_S-mean(press_P7_S);
 
 fs7=100000;
@@ -187,10 +202,11 @@ P_press_P7= 2.*abs_press_P7;
 SPL_P7=20*log10(P_press_P7./Pref);
 PSD_P7=SPL_P7-10*log10(df7);
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Detect Data plot(time steps,kPa) - S_Omega
-b6=readmatrix("exp_K3.xlsx");
+b6=readmatrix("exp_K1.xlsx");
 
 
 
@@ -203,7 +219,6 @@ plot(ff4,PSD_P4,'k','linewidth',1.0);
 plot(ff5,PSD_P5,'y','linewidth',1.0);
 plot(b6(:,1),b6(:,2),'linewidth',4.0);
 
-
 hold off;
 
 %set(gca,'xscale','log');
@@ -213,7 +228,7 @@ grid on;
 title("PSD-Harforice");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('K3-SM model', 'K3-WALE model','K3-WMLES model', 'K3-S-OMEGA model', 'K3-KET model','K3-Experiment')
+legend('K1-SM model', 'K1-WALE model','K1-WMLES model', 'K1-S-OMEGA model', 'K1-KET model','K1-Experiment')
 
 figure(2)
 
@@ -229,7 +244,7 @@ grid on;
 title("PSD-Harforice-SM");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('K3-SM model','K3-Experiment')
+legend('K1-SM model','K1-Experiment')
 
 figure(3)
 
@@ -245,7 +260,7 @@ grid on;
 title("PSD-Harforice-WALE");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('K3-WALE model','K3-Experiment')
+legend('K1-WALE model','K1-Experiment')
 
 figure(4)
 
@@ -261,7 +276,7 @@ grid on;
 title("PSD-Harforice-WMLES");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('K3-WMLES model','K3-Experiment')
+legend('K1-WMLES model','K1-Experiment')
 
 figure(5)
 
@@ -277,7 +292,7 @@ grid on;
 title("PSD-Harforice-S-OMEGA");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend( 'K3-S-OMEGA model', 'K3-Experiment')
+legend( 'K1-S-OMEGA model', 'K1-Experiment')
 
 figure(6)
 
@@ -293,7 +308,7 @@ grid on;
 title("PSD-Harforice-KET");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('K3-KET model', 'K3-Experiment')
+legend('K1-KET model', 'K1-Experiment')
 
 figure(7)
 
@@ -309,6 +324,23 @@ grid on;
 title("PSD-Harforice-WALE-Fine-Grid");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'Wale-Fine model')
+legend('K1-Experiment', 'K1-Wale-Fine model')
 
+
+figure(8)
+
+hold on;
+
+plot(ff2,PSD_P2,'g','linewidth',2.0);
+plot(ff7,PSD_P7,'b','linewidth',2.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
+hold off;
+%set(gca,'xscale','log');
+xlim([50 5000])
+ylim([50,130])
+grid on;
+title("PSD-Harforice-WALE-Fine-Grid");
+xlabel('Frequency [Hz]')
+ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
+legend('K1-WALE model', 'K1-WALE-Fine model', 'K1-Experiment')
 

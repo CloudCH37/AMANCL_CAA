@@ -8,12 +8,12 @@ Pref=20*10^(-6);
 
 % Detect Data plot(time steps,kPa)
 b1=readmatrix("Wall_Pressure_SM.txt");
-low = 4;                % low : Start data(row)
+low1 = 4+79;                % low : Start data(row)
 high1 = length(b1);       % high : End data(row)
 
 % data variable
-t1=b1(low:high1,3);
-press_P1_S=b1(low:high1,4);
+t1=b1(low1:high1,3);
+press_P1_S=b1(low1:high1,4);
 pressfluc_P1_S = press_P1_S-mean(press_P1_S);
 
 fs=100000;
@@ -39,12 +39,12 @@ PSD_P1=SPL_P1-10*log10(df1);
 
 % Detect Data plot(time steps,kPa)
 b2=readmatrix("Wall_Pressure_WALE.txt");
-low = 4;                % low : Start data(row)
+low2 = 4+92;               % low : Start data(row)
 high2 = length(b2);       % high : End data(row)
 
 % data variable
-t2=b2(low:high2,3);
-press_P2_S=b2(low:high2,4);
+t2=b2(low2:high2,3);
+press_P2_S=b2(low2:high2,4);
 pressfluc_P2_S = press_P2_S-mean(press_P2_S);
 
 fs2=100000;
@@ -69,12 +69,12 @@ PSD_P2=SPL_P2-10*log10(df2);
 
 % Detect Data plot(time steps,kPa)
 b3=readmatrix("Wall_Pressure_WMLES.txt");
-low = 4;                % low : Start data(row)
+low3 = 4+7936;            % low : Start data(row)
 high3 = length(b3);       % high : End data(row)
 
 % data variable
-t3=b3(low:high3,3);
-press_P3_S=b3(low:high3,4);
+t3=b3(low3:high3,3);
+press_P3_S=b3(low3:high3,4);
 pressfluc_P3_S = press_P3_S-mean(press_P3_S);
 
 fs3=100000;
@@ -99,12 +99,12 @@ PSD_P3=SPL_P3-10*log10(df3);
 
 % Detect Data plot(time steps,kPa) - S_Omega
 b4=readmatrix("Wall_Pressure_S_Omega.txt");
-low = 4;                % low : Start data(row)
+low4 = 4+5913;                % low : Start data(row)
 high4 = length(b4);       % high : End data(row)
 
 % data variable
-t4=b4(low:high4,3);
-press_P4_S=b4(low:high4,4);
+t4=b4(low4:high4,3);
+press_P4_S=b4(low4:high4,4);
 pressfluc_P4_S = press_P4_S-mean(press_P4_S);
 
 fs4=100000;
@@ -129,12 +129,12 @@ PSD_P4=SPL_P4-10*log10(df4);
 
 % Detect Data plot(time steps,kPa) - S_Omega
 b5=readmatrix("Wall_Pressure_KET.txt");
-low = 4;                % low : Start data(row)
+low5 = 4+3549;                % low : Start data(row)
 high5 = length(b5);       % high : End data(row)
 
 % data variable
-t5=b5(low:high5,3);
-press_P5_S=b5(low:high5,4);
+t5=b5(low5:high5,3);
+press_P5_S=b5(low5:high5,4);
 pressfluc_P5_S = press_P5_S-mean(press_P5_S);
 
 fs5=100000;
@@ -185,8 +185,8 @@ legend('K4-SM model', 'K4-WALE model','K4-WMLES model', 'K4-S-OMEGA model', 'K4-
 figure(2)
 
 hold on;
-plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 plot(ff1,PSD_P1,'b','linewidth',1.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 hold off;
 
 %set(gca,'xscale','log');
@@ -196,13 +196,13 @@ grid on;
 title("PSD-Harforice-SM");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'K4-SM model')
+legend('K4-SM model','K2-Experiment')
 
 figure(3)
 
 hold on;
-plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 plot(ff2,PSD_P2,'b','linewidth',1.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 hold off;
 
 %set(gca,'xscale','log');
@@ -212,13 +212,13 @@ grid on;
 title("PSD-Harforice-WALE");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'WALE model')
+legend('WALE model','K2-Experiment')
 
 figure(4)
 
 hold on;
-plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 plot(ff3,PSD_P3,'b','linewidth',1.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 hold off;
 
 %set(gca,'xscale','log');
@@ -228,13 +228,13 @@ grid on;
 title("PSD-Harforice-WMLES");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'WMLES model')
+legend('K2-WMLES model','K2-Experiment')
 
 figure(5)
 
 hold on;
-plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 plot(ff4,PSD_P4,'b','linewidth',1.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 hold off;
 
 %set(gca,'xscale','log');
@@ -244,13 +244,13 @@ grid on;
 title("PSD-Harforice-S-OMEGA");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'S-OMEGA model')
+legend( 'K2-S-OMEGA model', 'K2-Experiment')
 
 figure(6)
 
 hold on;
-plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 plot(ff5,PSD_P5,'b','linewidth',1.0);
+plot(b6(:,1),b6(:,2),'r','linewidth',2.0);
 hold off;
 
 %set(gca,'xscale','log');
@@ -260,5 +260,5 @@ grid on;
 title("PSD-Harforice-KET");
 xlabel('Frequency [Hz]')
 ylabel('Power Spectral Density [(dB/Hz^1^/^2], P_r_e_f=20 \muPa')
-legend('Experiment', 'KET model')
+legend('K2-KET model', 'K2-Experiment')
 
